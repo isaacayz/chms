@@ -1,0 +1,138 @@
+﻿@model Chms.Data.Models.Member
+@{
+
+}
+<!-- START MODAL ICON PREVIEW -->
+<div class="modal fade" id="memberNew" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">New Member</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("AddMember", "Member", new AjaxOptions { OnSuccess = "" }, new { @class = "form-horizontal" }))
+                {
+                    @*<form id="memberForm" class="form-horizontal">*@
+                    @*@Html.AntiForgeryToken()*@
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">First Name</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                @Html.TextBoxFor(item => item.FirstName, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">Last Name</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                @Html.TextBoxFor(item => item.LastName, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">Address </label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                @Html.TextBoxFor(item => item.Address, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label"> Phone Number</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-phone"></span></span>
+                                @Html.TextBoxFor(item => item.PhoneNumber, new { type = "number", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label"> Email Address</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-mail"></span></span>
+                                @Html.TextBoxFor(item => item.Email, new { type = "email", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">Date of Birth</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-mail"></span></span>
+                                @Html.TextBoxFor(item => item.DOB, new { type = "date", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">Anniversary</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-mail"></span></span>
+                                @Html.TextBoxFor(item => item.Anniversary, new { type = "date", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label"> Sex</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-phone"></span></span>
+                                @Html.TextBoxFor(item => item.Sex, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label"> Worker? </label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"></span>
+                                @Html.RadioButtonFor(item => item.IsWorker, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-12 control-label">Salutation</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                @Html.EditorFor(item => item.Salutation, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Save" id="btnValidate" class="btn btn-primary" />
+                    @*</form>*@
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script type="text/javascript" src="~/Content/js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.validate.min.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+        $('#btnValidate').click(function () {
+            var data = $('#memberForm').serialize();
+            @*@Url.Content("~/ScheduleMgt/PostItemBags/")*@
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/MemberController/AddMember/")',
+                data: data,
+                success: function () {
+                    $("#memberNew").modal('hide');
+                }
+            })
+        })
+    })
+</script>
+
+<!-- END MODAL ICON PREVIEW -->
